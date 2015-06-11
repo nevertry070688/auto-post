@@ -19,10 +19,11 @@ public class LastName extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_last_name);
-        LastNameList = accHelper.GetFirstName();
-        IdLastNameList = accHelper.GetIdFirstName();
+        accHelper = AccountSQLiteHelper.getInstance(getApplicationContext());
+        LastNameList = accHelper.GetLastName();
+        IdLastNameList = accHelper.GetIdLastName();
         NameAdapter disadpt = new NameAdapter(LastName.this,IdLastNameList,LastNameList);
-        ListView lv = (ListView) findViewById(R.id.FN_listview);
+        ListView lv = (ListView) findViewById(R.id.lv_LastName);
         lv.setAdapter(disadpt);
     }
 

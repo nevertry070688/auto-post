@@ -7,4 +7,10 @@
     tools:context="com.example.nevertry.auto_register.MiddleName">
 
 
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lv_MiddleName"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

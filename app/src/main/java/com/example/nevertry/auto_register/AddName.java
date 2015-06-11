@@ -6,7 +6,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import AccountDataBase.AccountSQLiteHelper;
 
@@ -17,23 +19,28 @@ public class AddName extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_name);
+        accHelper = AccountSQLiteHelper.getInstance(getApplicationContext());
         Button bt = (Button) findViewById(R.id.bt_add);
         bt.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-               TextView tv = (TextView) findViewById(R.id.tv_name);
-               String name = tv.toString();
+               EditText tv = (EditText) findViewById(R.id.et_Name);
+               String name = tv.getText().toString();
 
-            int type = Integer.parseInt(getIntent().getExtras().getString("type"));
+            int type = getIntent().getIntExtra("type",0);
+            int result;
             switch(type)
             {
                 case -1:
-                    accHelper.InsertFirstName(name);
+                    result = accHelper.InsertFirstName(name);
+                    Toast.makeText(getApplicationContext(),"result is " + result,Toast.LENGTH_LONG).show();
                     break;
                 case 0:
-                    accHelper.InsertMiddleName(name);
+                    result = accHelper.InsertMiddleName(name);
+                    Toast.makeText(getApplicationContext(),"result is " + result,Toast.LENGTH_LONG).show();
                     break;
                 case 1:
-                    accHelper.InsertLastName(name);
+                    result = accHelper.InsertLastName(name);
+                    Toast.makeText(getApplicationContext(),"result is " + result,Toast.LENGTH_LONG).show();
                     break;
             }
             }

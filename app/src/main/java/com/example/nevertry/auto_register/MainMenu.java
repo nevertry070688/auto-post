@@ -1,6 +1,7 @@
 package com.example.nevertry.auto_register;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -8,12 +9,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import AccountDataBase.AccountSQLiteHelper;
 import AccountProcessing.GoogleAccount;
 
 
 public class MainMenu extends ActionBarActivity {
-
-    public GoogleAccount ggAccount;
+    public GoogleAccount mGgAccount;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +40,16 @@ public class MainMenu extends ActionBarActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_Manage_FirstName) {
             Intent it = new Intent(getApplicationContext(),FirstName.class);
+            startActivity(it);
+            return true;
+        }
+        if (id == R.id.action_Manage_LastName) {
+            Intent it = new Intent(getApplicationContext(),LastName.class);
+            startActivity(it);
+            return true;
+        }
+        if (id == R.id.Manage_MiddleName) {
+            Intent it = new Intent(getApplicationContext(),MiddleName.class);
             startActivity(it);
             return true;
         }

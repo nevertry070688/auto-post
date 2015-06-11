@@ -16,7 +16,8 @@ import AccountDTO.GoogleAccountDTO;
  * Created by nevertry on 6/9/15.
  */
 public class AccountSQLiteHelper extends SQLiteOpenHelper {
-
+    private static AccountSQLiteHelper sInstance;
+    private static SQLiteDatabase db ;
     private static final int databaseVersion = 1;
     // Database Name
     private static final String databaseName = "account_register";
@@ -29,7 +30,17 @@ public class AccountSQLiteHelper extends SQLiteOpenHelper {
         static final String MiddleName = "MiddleName";
         static final String LastName = "LastName";
     }
+    public static synchronized AccountSQLiteHelper getInstance(Context context) {
 
+        // Use the application context, which will ensure that you
+        // don't accidentally leak an Activity's context.
+        // See this article for more information: http://bit.ly/6LRzfx
+        if (sInstance == null) {
+            sInstance = new AccountSQLiteHelper(context.getApplicationContext());
+            db = sInstance.getWritableDatabase();
+        }
+        return sInstance;
+    }
     public interface GoogleAccountDbColumn {
         // Login Table Columns names
          static final String keyId = "No";
@@ -75,41 +86,43 @@ public class AccountSQLiteHelper extends SQLiteOpenHelper {
 
     }
     private void setupTables(SQLiteDatabase db) {
-        String createGoogleAccountTable = "CREATE TABLE " + Tables.GoogleAccount + "("
+       // db.execSQL("CREATE TABLE constants (_id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, value REAL);");
+        String createGoogleAccountTable = "CREATE TABLE " + Tables.GoogleAccount + " ("
                 + GoogleAccountDbColumn.keyId + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + GoogleAccountDbColumn.FirstName + " TEXT,"
-                + GoogleAccountDbColumn.LastName + " TEXT ,"
-                + GoogleAccountDbColumn.emailAddress + " TEXT ,"
-                + GoogleAccountDbColumn.password + " TEXT ,"
-                + GoogleAccountDbColumn.birthday_day + " TEXT ,"
-                + GoogleAccountDbColumn.birthday_month + " TEXT ,"
-                + GoogleAccountDbColumn.birthday_year + " TEXT ,"
-                + GoogleAccountDbColumn.sex + " INTEGER ,"
-                + GoogleAccountDbColumn.phoneNumber + " TEXT ,"
-                + GoogleAccountDbColumn.currentEmail + " TEXT ,"
-                + GoogleAccountDbColumn.skipVerification + " INTEGER ,"
-                + GoogleAccountDbColumn.insertText + " TEXT ,"
-                + GoogleAccountDbColumn.loginSuccess + " TEXT ,"
+                + GoogleAccountDbColumn.LastName + " TEXT, "
+                + GoogleAccountDbColumn.emailAddress + " TEXT, "
+                + GoogleAccountDbColumn.password + " TEXT, "
+                + GoogleAccountDbColumn.birthday_day + " TEXT, "
+                + GoogleAccountDbColumn.birthday_month + " TEXT, "
+                + GoogleAccountDbColumn.birthday_year + " TEXT, "
+                + GoogleAccountDbColumn.sex + " INTEGER, "
+                + GoogleAccountDbColumn.phoneNumber + " TEXT, "
+                + GoogleAccountDbColumn.currentEmail + " TEXT, "
+                + GoogleAccountDbColumn.skipVerification + " INTEGER, "
+                + GoogleAccountDbColumn.insertText + " TEXT, "
+                + GoogleAccountDbColumn.loginSuccess + " TEXT"
                 + ")";
-        String createFirstNameTable = "CREATE TABLE " + Tables.FirstName + "("
+        String createFirstNameTable = "CREATE TABLE " + Tables.FirstName + " ("
                 + FirstNameDbColumn.keyId + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + FirstNameDbColumn.FirstName + " TEXT,"
-                + ")";
-        String createMiddleNameTable = "CREATE TABLE " + Tables.FirstName + "("
+                + FirstNameDbColumn.FirstName + " TEXT"
+                + ");";
+        String createMiddleNameTable = "CREATE TABLE " + Tables.MiddleName + " ("
                 + MiddleNameDbColumn.keyId + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + MiddleNameDbColumn.MiddleName + " TEXT,"
-                + ")";
-        String createLastNameTable = "CREATE TABLE " + Tables.FirstName + "("
+                + MiddleNameDbColumn.MiddleName + " TEXT"
+                + ");";
+        String createLastNameTable = "CREATE TABLE " + Tables.LastName + " ("
                 + LastNameDbColumn.keyId + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + LastNameDbColumn.LastName + " TEXT,"
-                + ")";
+                + LastNameDbColumn.LastName + " TEXT"
+                + ");";
         db.execSQL(createFirstNameTable);
         db.execSQL(createMiddleNameTable);
         db.execSQL(createLastNameTable);
+        db.execSQL(createGoogleAccountTable);
     }
     public int InsertGoogleAccountTable(GoogleAccountDTO googleaccount)
     {
-        SQLiteDatabase db = this.getWritableDatabase();
+       // SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(GoogleAccountDbColumn.FirstName,googleaccount.FirstName);
         values.put(GoogleAccountDbColumn.LastName,googleaccount.LastName);
@@ -130,21 +143,21 @@ public class AccountSQLiteHelper extends SQLiteOpenHelper {
 
     public int InsertFirstName(String FirstName)
     {
-        SQLiteDatabase db = this.getWritableDatabase();
+        //SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(FirstNameDbColumn.FirstName,FirstName);
         return(int) db.insert(Tables.FirstName,null,values);
     }
     public int InsertMiddleName(String MiddleName)
     {
-        SQLiteDatabase db = this.getWritableDatabase();
+       // SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(MiddleNameDbColumn.MiddleName,MiddleName);
         return(int) db.insert(Tables.MiddleName,null,values);
     }
     public int InsertLastName(String LastName)
     {
-        SQLiteDatabase db = this.getWritableDatabase();
+        //SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(LastNameDbColumn.LastName,LastName);
         return(int) db.insert(Tables.LastName,null,values);
@@ -152,7 +165,7 @@ public class AccountSQLiteHelper extends SQLiteOpenHelper {
     public ArrayList<String> GetFirstName(){
         String selectQuery = "Select * from " +
                 Tables.FirstName ;
-        SQLiteDatabase db = this.getWritableDatabase();
+        //SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
         ArrayList<String> FirstNameList = new ArrayList<String>();
         String name;
@@ -173,7 +186,7 @@ public class AccountSQLiteHelper extends SQLiteOpenHelper {
     public ArrayList<String> GetIdFirstName(){
         String selectQuery = "Select * from " +
                 Tables.FirstName ;
-        SQLiteDatabase db = this.getWritableDatabase();
+        //SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
         ArrayList<String> IdFirstNameList = new ArrayList<String>();
         String name;
@@ -195,7 +208,7 @@ public class AccountSQLiteHelper extends SQLiteOpenHelper {
 
         String selectQuery = "Select * from " +
                 Tables.MiddleName ;
-        SQLiteDatabase db = this.getWritableDatabase();
+        //SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
         ArrayList<String> MiddleNameList = new ArrayList<String>();
         String name;
@@ -213,11 +226,32 @@ public class AccountSQLiteHelper extends SQLiteOpenHelper {
         cursor.close();
         return MiddleNameList;
     }
+    public ArrayList<String> GetIdMiddleName(){
+        String selectQuery = "Select * from " +
+                Tables.FirstName ;
+        //SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        ArrayList<String> IdFirstNameList = new ArrayList<String>();
+        String name;
+        if(cursor != null){
+            if(cursor.moveToFirst()){
+                while (cursor.isAfterLast() == false) {
+                    name = cursor.getString(cursor
+                            .getColumnIndex(FirstNameDbColumn.keyId));
+                    IdFirstNameList.add(name);
+                    cursor.moveToNext();
+                }
+            }
+
+        }
+        cursor.close();
+        return IdFirstNameList;
+    }
     public ArrayList<String> GetLastName(){
 
         String selectQuery = "Select * from " +
                 Tables.LastName ;
-        SQLiteDatabase db = this.getWritableDatabase();
+        //SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
         ArrayList<String> LastNameList = new ArrayList<String>();
         String name;
@@ -235,7 +269,27 @@ public class AccountSQLiteHelper extends SQLiteOpenHelper {
         cursor.close();
         return LastNameList;
     }
+    public ArrayList<String> GetIdLastName(){
+        String selectQuery = "Select * from " +
+                Tables.FirstName ;
+        //SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        ArrayList<String> IdFirstNameList = new ArrayList<String>();
+        String name;
+        if(cursor != null){
+            if(cursor.moveToFirst()){
+                while (cursor.isAfterLast() == false) {
+                    name = cursor.getString(cursor
+                            .getColumnIndex(FirstNameDbColumn.keyId));
+                    IdFirstNameList.add(name);
+                    cursor.moveToNext();
+                }
+            }
 
+        }
+        cursor.close();
+        return IdFirstNameList;
+    }
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i2) {
         int oldVersion;

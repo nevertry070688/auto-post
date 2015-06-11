@@ -19,10 +19,11 @@ public class MiddleName extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_middle_name);
+        accHelper = AccountSQLiteHelper.getInstance(getApplicationContext());
         MiddleNameList = accHelper.GetMiddleName();
-        IdMiddleNameList = accHelper.GetIdFirstName();
+        IdMiddleNameList = accHelper.GetIdMiddleName();
         NameAdapter disadpt = new NameAdapter(MiddleName.this,IdMiddleNameList,MiddleNameList);
-        ListView lv = (ListView) findViewById(R.id.FN_listview);
+        ListView lv = (ListView) findViewById(R.id.lv_MiddleName);
         lv.setAdapter(disadpt);
 
     }

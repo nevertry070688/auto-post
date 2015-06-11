@@ -20,11 +20,11 @@ public class FirstName extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first_name);
-        accHelper = new AccountSQLiteHelper(this);
+        accHelper = AccountSQLiteHelper.getInstance(getApplicationContext());
         FirstNameList = accHelper.GetFirstName();
         IdFirstNameList = accHelper.GetIdFirstName();
         NameAdapter disadpt = new NameAdapter(FirstName.this,IdFirstNameList,FirstNameList);
-        ListView lv = (ListView) findViewById(R.id.FN_listview);
+        ListView lv = (ListView) findViewById(R.id.lv_FirstName);
         lv.setAdapter(disadpt);
     }
 
