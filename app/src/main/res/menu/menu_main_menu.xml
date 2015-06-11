@@ -1,0 +1,12 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" tools:context=".MainMenu">
+    <item android:id="@+id/action_Manage_FirstName" android:title="@string/menu_firstname"
+        android:orderInCategory="100" app:showAsAction="never" />
+    <item android:id="@+id/action_Manage_LastName" android:title="@string/menu_lastname"
+        android:orderInCategory="101" app:showAsAction="never" />
+    <item android:id="@+id/Manage_MiddleName" android:title="@string/menu_middlename"
+        android:orderInCategory="102" app:showAsAction="never" />
+    <item android:id="@+id/action_Manage_google_account_information" android:title="@string/menu_googeaccount"
+        android:orderInCategory="103" app:showAsAction="never" />
+</menu>
