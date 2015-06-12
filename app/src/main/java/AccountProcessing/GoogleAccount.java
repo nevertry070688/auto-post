@@ -1,6 +1,7 @@
 package AccountProcessing;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import AccountDTO.GoogleAccountDTO;
 import AccountDataBase.AccountSQLiteHelper;
@@ -31,42 +32,68 @@ public class GoogleAccount extends AccountProcessing {
     }
 
     @Override
-    public void GetFirstName() {
+    public String GetFirstName() {
             this.FirstNameList = this.accountSQLiteHelper.GetFirstName();
+            int NameRange = this.FirstNameList.size();
+        if(NameRange > 0){
+            Random rd = new Random();
+            int Index = rd.nextInt(NameRange);
+            return this.FirstNameList.get(Index);
+        }
+            return null;
     }
 
     @Override
-    public void GetLastName() {
+    public String GetLastName() {
         this.LastNameList = this.accountSQLiteHelper.GetLastName();
+        int NameRange = this.LastNameList.size();
+        if(NameRange > 0){
+            Random rd = new Random();
+            int Index = rd.nextInt(NameRange);
+            return this.LastNameList.get(Index);
+        }
+        return null;
     }
 
     @Override
-    public void GetMiddleName() {
+    public String GetMiddleName() {
         this.MiddleNameList = this.accountSQLiteHelper.GetMiddleName();
+        int NameRange = this.MiddleNameList.size();
+        if(NameRange > 0){
+            Random rd = new Random();
+            int Index = rd.nextInt(NameRange);
+            return this.MiddleNameList.get(Index);
+        }
+        return null;
     }
 
     @Override
-    public void GetBirthdayDay() {
+    public String GetBirthdayDay() {
 
+        return null;
     }
 
     @Override
-    public void GetBirthdayMonth() {
+    public String GetBirthdayMonth() {
 
+        return null;
     }
 
     @Override
-    public void GetBirthdayYear() {
+    public String GetBirthdayYear() {
 
+        return null;
     }
 
     @Override
-    public void GetSex() {
+    public int GetSex() {
 
+        return 0;
     }
 
     @Override
-    public void GetPhoneNumber() {
+    public String GetPhoneNumber() {
 
+        return null;
     }
 }

@@ -14,12 +14,12 @@ public abstract class AccountProcessing {
     public ArrayList<String> LastNameList;
     public AccountSQLiteHelper accountSQLiteHelper;
 
-    public abstract void GetFirstName();
-    public abstract void GetLastName();
-    public abstract void GetMiddleName();
-    public abstract void GetBirthdayDay();
-    public abstract void GetBirthdayMonth();
-    public abstract void GetBirthdayYear();
-    public abstract void GetSex();
-    public abstract void GetPhoneNumber();
+    public abstract String GetFirstName();
+    public abstract String GetLastName();
+    public abstract String GetMiddleName();
+    public abstract String GetBirthdayDay();
+    public abstract String GetBirthdayMonth();
+    public abstract String GetBirthdayYear();
+    public abstract int GetSex();
+    public abstract String GetPhoneNumber();
 }
