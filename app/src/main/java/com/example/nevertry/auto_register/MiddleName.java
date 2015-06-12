@@ -1,5 +1,6 @@
 package com.example.nevertry.auto_register;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -44,7 +45,10 @@ public class MiddleName extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.mn_middlename_add) {
+            Intent it = new Intent(this.getApplicationContext(),AddName.class);
+            it.putExtra("type",0);
+            startActivity(it);
             return true;
         }
 

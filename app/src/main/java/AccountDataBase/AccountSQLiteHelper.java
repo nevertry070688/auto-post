@@ -228,7 +228,7 @@ public class AccountSQLiteHelper extends SQLiteOpenHelper {
     }
     public ArrayList<String> GetIdMiddleName(){
         String selectQuery = "Select * from " +
-                Tables.FirstName ;
+                Tables.MiddleName ;
         //SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
         ArrayList<String> IdFirstNameList = new ArrayList<String>();
@@ -271,7 +271,7 @@ public class AccountSQLiteHelper extends SQLiteOpenHelper {
     }
     public ArrayList<String> GetIdLastName(){
         String selectQuery = "Select * from " +
-                Tables.FirstName ;
+                Tables.LastName ;
         //SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
         ArrayList<String> IdFirstNameList = new ArrayList<String>();
